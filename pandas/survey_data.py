@@ -28,5 +28,24 @@ filt_lang_worked = df["LanguageWorkedWith"].str.contains("Python" , na = False);
 
 # print(df.loc[filt_lang_worked,["Country","ConvertedComp","WorkWeekHrs","LanguageWorkedWith"]])
 
-df.rename(columns={"ConvertedComp" : "SalaryUSD"},inplace=True);
-print(df.columns);
+# df.rename(columns={"ConvertedComp" : "SalaryUSD"},inplace=True);
+# print(df.columns);
+
+# df2 = df["Country"].value_counts();
+# print(df2[df2 > 1000]);     #prints those countries with their count whose count is >1000
+
+
+
+                            #DEALING WITH MISSING VALUES
+
+na_val = ["NA", "Missing", "Na"];
+df_miss =pd.read_csv("D:\Codes\data for pandas python\survey_results_public.csv",index_col="Respondent",na_values=na_val); #now when loading the csv file those strings in the list will get converted to NaN
+
+df["YearsCode"].unique(); #displays all unique values in that colomn, it contains int,string,NaN
+#to find mean of this coloumn we gotta convert all of the values into float
+
+df.replace({'YearsCode':'Less than 1 year'}, 0, inplace=True);
+df.replace({'YearsCode':'More than 50 years'}, 51, inplace=True);
+df["YearsCode"] = df["YearsCode"].astype(float);
+# print("Mean of years since coding =");
+# print(df["YearsCode"].mean());
